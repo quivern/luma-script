@@ -48,10 +48,13 @@ class StepsTest {
         var step = new DelayedTickStep(3, () -> executed.set(true));
         var time = new ScriptTime();
 
-        for (int i = 0; i < 3; i++) {
-            step.perform(time);
-            assertFalse(step.isFinished());
-        }
+        step.perform(time);
+        assertFalse(step.isFinished());
+        assertFalse(executed.get());
+
+        step.perform(time);
+        assertFalse(step.isFinished());
+        assertFalse(executed.get());
 
         step.perform(time);
         assertTrue(step.isFinished());
